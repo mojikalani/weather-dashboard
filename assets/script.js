@@ -10,6 +10,7 @@ var currentHumidityEl = document.querySelector("#humidity");
 var curentWindSpeedEl = document.querySelector("#wind-speed");
 var currentUVEl = document.querySelector("#UV-index");
 var currentCity = document.querySelector("#city-name");
+
 // init search history
 searchHistory = localStorage.getItem("search-history");
 if (searchHistory) {
@@ -27,6 +28,7 @@ function handleFormSubmit(event) {
     addSearchToHistory(query);
   }
 }
+
 
 // Accepts a query and fetches data from the giphy api.
 function searchCity(query) {
@@ -52,7 +54,8 @@ function searchCity(query) {
       })
       .then(function(data){ 
           console.log(data)
-
+        var date = data.current.dt;
+        console.log()
         var temp = data.current.temp;
         var humidity = data.current.humidity;  
         var uvi = data.current.uvi;

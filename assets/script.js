@@ -45,7 +45,7 @@ function searchCity(query) {
      "&lon=" + long + "&units=imperial&exclude=hourly&appid=" + weatherApiKey;
      
 
-      // Weather for the main card
+      // ---- Weather for the main card ----
       fetch(requestWeather)
       .then(function (response){ 
         return response.json();
@@ -69,53 +69,67 @@ function searchCity(query) {
         
 
 
-        //Weather for 5 day forecast
-        var dailyWeather = data.daily[0]; 
+        // ---- Weather for 5 day forecast ----
+        // Day 1
+        var icon = data.daily[0].weather[0].icon;
+        var URLicon = "http://openweathermap.org/img/w/" + icon + ".png"; 
         var temp1 = document.querySelector("#temp1");
         var humid1 = document.querySelector("#humid1");
         var windSpeed1 = document.querySelector("#wind-speed1")
+        var weatherpic1 = document.querySelector("#weatherPic1")
+        
         temp1.textContent = "Temperature: " + data.daily[0].temp.day;
         humid1.textContent = "Humidity: " + data.daily[0].humidity;
         windSpeed1.textContent = "Wind Speed: " + data.daily[0].wind_speed;
+        weatherpic1.setAttribute('src', URLicon)
 
+        // Day 2
+        var icon = data.daily[1].weather[0].icon;
+        var temp2 = document.querySelector("#temp2");
+        var humid2 = document.querySelector("#humid2");
+        var windSpeed2 = document.querySelector("#wind-speed2")
+        var weatherpic2 = document.querySelector("#weatherPic2")
 
-        var dailyWeather2= data.daily[1];
-        var temp1 = document.querySelector("#temp2");
-        var humid1 = document.querySelector("#humid2");
-        var windSpeed1 = document.querySelector("#wind-speed2")
-        temp1.textContent = "Temperature: " + data.daily[1].temp.day;
-        humid1.textContent = "Humidity: " + data.daily[1].humidity;
-        windSpeed1.textContent = "Wind Speed: " + data.daily[1].wind_speed;
+        temp2.textContent = "Temperature: " + data.daily[1].temp.day;
+        humid2.textContent = "Humidity: " + data.daily[1].humidity;
+        windSpeed2.textContent = "Wind Speed: " + data.daily[1].wind_speed;
+        weatherpic2.setAttribute('src', URLicon)
 
-        var dailyWeather3= data.daily[2];
-        var temp1 = document.querySelector("#temp3");
-        var humid1 = document.querySelector("#humid3");
-        var windSpeed1 = document.querySelector("#wind-speed3")
-        temp1.textContent = "Temperature: " + data.daily[2].temp.day;
-        humid1.textContent = "Humidity: " + data.daily[2].humidity;
-        windSpeed1.textContent = "Wind Speed: " + data.daily[2].wind_speed;
+        // Day 3
+        var icon = data.daily[2].weather[0].icon;
+        var temp3 = document.querySelector("#temp3");
+        var humid3 = document.querySelector("#humid3");
+        var windSpeed3 = document.querySelector("#wind-speed3")
+        var weatherpic3 = document.querySelector("#weatherPic3")
 
-        var dailyWeather4= data.daily[3]; 
-        var temp1 = document.querySelector("#temp4");
-        var humid1 = document.querySelector("#humid4");
-        var windSpeed1 = document.querySelector("#wind-speed4")
-        temp1.textContent = "Temperature: " + data.daily[3].temp.day;
-        humid1.textContent = "Humidity: " + data.daily[3].humidity;
-        windSpeed1.textContent = "Wind Speed: " + data.daily[3].wind_speed;
+        temp3.textContent = "Temperature: " + data.daily[2].temp.day;
+        humid3.textContent = "Humidity: " + data.daily[2].humidity;
+        windSpeed3.textContent = "Wind Speed: " + data.daily[2].wind_speed;
+        weatherpic3.setAttribute('src', URLicon)
 
-        var dailyWeather5= data.daily[4];
-        var temp1 = document.querySelector("#temp5");
-        var humid1 = document.querySelector("#humid5");
-        var windSpeed1 = document.querySelector("#wind-speed5")
-        temp1.textContent = "Temperature: " + data.daily[4].temp.day;
-        humid1.textContent = "Humidity: " + data.daily[4].humidity;
-        windSpeed1.textContent = "Wind Speed: " + data.daily[4].wind_speed;
+        // Day 4
+        var icon = data.daily[3].weather[0].icon;
+        var temp4 = document.querySelector("#temp4");
+        var humid4 = document.querySelector("#humid4");
+        var windSpeed4 = document.querySelector("#wind-speed4")
+        var weatherpic4 = document.querySelector("#weatherPic4")
 
-        console.log(dailyWeather)
-        console.log(dailyWeather2)
-        console.log(dailyWeather3)
-        console.log(dailyWeather4)
-        console.log(dailyWeather5)
+        temp4.textContent = "Temperature: " + data.daily[3].temp.day;
+        humid4.textContent = "Humidity: " + data.daily[3].humidity;
+        windSpeed4.textContent = "Wind Speed: " + data.daily[3].wind_speed;
+        weatherpic4.setAttribute('src', URLicon)
+
+        // Day 5
+        var icon = data.daily[4].weather[0].icon;
+        var temp5 = document.querySelector("#temp5");
+        var humid5 = document.querySelector("#humid5");
+        var windSpeed5 = document.querySelector("#wind-speed5")
+        var weatherpic5 = document.querySelector("#weatherPic5")
+
+        temp5.textContent = "Temperature: " + data.daily[4].temp.day;
+        humid5.textContent = "Humidity: " + data.daily[4].humidity;
+        windSpeed5.textContent = "Wind Speed: " + data.daily[4].wind_speed;
+        weatherpic5.setAttribute('src', URLicon)
       })
     })
 } 

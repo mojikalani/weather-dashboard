@@ -4,7 +4,12 @@ var form = $("#search-form");
 var searchInput = $("#citySearch");
 var resultsContainer = $("#results");
 var searchHistoryContainer = $("#search-history");
-
+var weatherPic = document.querySelector("#weatherPic");
+var currentTempEl= document.querySelector("#temperature");
+var currentHumidityEl = document.querySelector("#humidity");
+var curentWindSpeedEl = document.querySelector("#wind-speed");
+var currentUVEl = document.querySelector("#UV-index");
+var currentCity = document.querySelector("#city-name");
 // init search history
 searchHistory = localStorage.getItem("search-history");
 if (searchHistory) {
@@ -15,9 +20,9 @@ if (searchHistory) {
 
 function handleFormSubmit(event) {
   event.preventDefault();
-  var query = searchInput.val().trim();
+  var query = searchInput.val().trim(); //citySearch
   if (query) {
-    searchGiphy(query);
+    searchCity(query);
     searchInput.val("");
     addSearchToHistory(query);
   }
@@ -25,42 +30,84 @@ function handleFormSubmit(event) {
 
 // Accepts a query and fetches data from the giphy api.
 function searchCity(query) {
-  var requestUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    query +
-    "&appid=" + 
+  var requestCoor = "https://api.openweathermap.org/geo/1.0/direct?q=" + query + "&limit-1&appid=" +  
     weatherApiKey;
-    console.log(requestUrl)
     
-  fetch(requestUrl)
+ 
+  fetch(requestCoor)
     .then(function (response) {
-        console.log(response);
       return response.json();
     })
     .then(function (data) {
-      resultsContainer.empty();
-      for (var i = 0; i < data.data.length; i++) {
-        displayGiphy(data.data[i]);
-      }
-    });
-}
+     var lat = data[0].lat; 
+     var long = data[0].lon;
+     var requestWeather = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + 
+     "&lon=" + long + "&units=imperial&exclude=hourly,daily&appid=" + weatherApiKey;
+      //resultsContainer.empty();
+      fetch(requestWeather)
+      .then(function (response){ 
+        return response.json();
+      })
+      .then(function(data){ 
+          console.log(data)
+        var temp = data.current.temp;
+        var humidity = data.current.humidity;  
+        var uvi = data.current.uvi;
+        var windSpeed = data.current.wind_speed;
+        var currentIcon = data.current.weather[0].icon; 
+        var iconURL = "http://openweathermap.org/img/w/" + currentIcon + ".png"; 
+        
+        weatherPic.setAttribute('src', iconURL);
+        currentCity.textContent = query;
+        currentTempEl.textContent = "Tempurature: " + temp + "F";
+        currentHumidityEl.textContent = "Humidity: " + humidity + "%"; 
+        curentWindSpeedEl.textContent = "Wind-Speed: "+ windSpeed + "MPH";
+        currentUVEl.textContent = "UV-Index: " + uvi; 
+        
+      })
+    })
+} 
+ 
+    
+
+    
 
 
+function weekForecast(query) {
+    var requestUrl =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      query +
+      "&appid=" + 
+      weatherApiKey;
+      
+      
+    fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        
+        console.log(data)
+        var lat= data.coord.lat; 
+        var long= data.coord.lon;
+        var cityName = data.name;
+        var weatherIcon = data.weather[0].icon;
+        var temp = data.main.temp;
+        var humidity = data.main.humidity; 
+        var windSpeed = data.wind.speed;
+     
+        console.log(currentWeather)
+          //displayWeather(data, cityName);
+        displayWeather(data);
+        
+      })
+  }
+// Display current city weather
+// function displayWeather(result, city) { 
+//  currentTempEl.textContent = "Tempurature: " + data.weather.main.temp;
 
+// }
 
-function displayGiphy(giphyResult) {
-  var imgUrl = giphyResult.images.downsized_large.url;
-  var title = giphyResult.title;
-
-  var img = $("<img>").attr({
-    src: imgUrl,
-    class: "img-fluid",
-    alt: title,
-  });
-  var col = $("<div>").addClass("col-12 col-lg-6 pb-4").append(img);
-
-  resultsContainer.append(col);
-}
 
 // Storing city search results 
 function displayButtons() {
@@ -78,7 +125,7 @@ function displayButtons() {
 }
 
 function handleSearchClick() {
-  searchGiphy(this.textContent);
+  searchCity(this.textContent);
 }
 
 function addSearchToHistory(query) {

@@ -29,6 +29,10 @@
               </button>
             </div>
           </form>
+          <!-- <button id="clear-history" type="button" class="btn btn-primary btn-block mt-3">Clear History</button>
+          <form id="searchHistory">
+
+          </form> -->
           <hr />
           <div class="pb-3" id="search-history">
             <button type="button" class="btn btn-outline-secondary btn-block">
@@ -42,11 +46,52 @@
             </button>
           </div>
         </div>
-        <div class="col-12 col-md-8 col-lg-9">
-          <div class="row" id="results"></div>
-        </div>
+        <div class="col-8">
+          <div class="row mr-0">
+              <div class="col-12 border border-dark m-3 rounded">
+                  <div class="row">
+                      <div class="col-12">
+                          <h2 class="city-name align-middle">Current Weather in: <span id="city-name" class="city-name align-middle"></span></h2>
+                          <img id="weatherPic"   alt="">
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <p id="temperature">Tempurature: </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <p id="humidity">Humidity: </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <p id="wind-speed">Wind Speed:</p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 d-flex">
+                          <p id="UV-index">UV-Index:</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12">
+                  <h3>5-Day Forecast</h3>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col weeklyForecast bg-primary text-white ml-3 mb-3 rounded"></div>
+              <div class="col weeklyForecast bg-primary text-white ml-3 mb-3 rounded"></div>
+              <div class="col weeklyForecast bg-primary text-white ml-3 mb-3 rounded"></div>
+              <div class="col weeklyForecast bg-primary text-white ml-3 mb-3 rounded"></div>
+              <div class="col weeklyForecast bg-primary text-white ml-3 mb-3 rounded"></div>
+          </div>
       </div>
-    </div>
+  </div>
+</div>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
